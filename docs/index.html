@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Prediction</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; display: flex; justify-content: center; padding-top: 50px; }
+        .container { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 400px; }
+        h1 { font-size: 1.5rem; text-align: center; margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+        input[type="number"] { width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 0.75rem; background: #007bff; color: white; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .result { margin-top: 1.5rem; padding: 1rem; background: #e9ecef; border-radius: 4px; text-align: center; font-size: 1.25rem; font-weight: bold; display: none; }
+        .footer { margin-top: 2rem; text-align: center; font-size: 0.85rem; color: #666; }
+        .notice { background: #fff3cd; color: #856404; padding: 10px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 1rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="notice">
+            <strong>Browser Demo Only</strong><br>
+            This page demonstrates the UI and calculates the prediction purely in JavaScript using pre-computed model coefficients.
+        </div>
+        <h1>Student Performance Prediction</h1>
+        <form id="predForm">
+            <div class="form-group">
+                <label for="attendance">Attendance (%)</label>
+                <input type="number" step="0.1" id="attendance" value="85" required>
+            </div>
+            <div class="form-group">
+                <label for="study_hours">Study Hours (per week)</label>
+                <input type="number" step="0.1" id="study_hours" value="3" required>
+            </div>
+            <div class="form-group">
+                <label for="internal_marks">Internal Marks (out of 100)</label>
+                <input type="number" step="0.1" id="internal_marks" value="70" required>
+            </div>
+            <div class="form-group">
+                <label for="assignments">Assignments Completed</label>
+                <input type="number" id="assignments" value="8" required>
+            </div>
+            <button type="submit">Predict Score</button>
+        </form>
+
+        <div class="result" id="resultDiv">
+            Predicted Final Marks: <span id="score"></span>
+        </div>
+        
+        <div class="footer">
+            Model: Linear Regression
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('predForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const att = parseFloat(document.getElementById('attendance').value);
+            const hrs = parseFloat(document.getElementById('study_hours').value);
+            const internal = parseFloat(document.getElementById('internal_marks').value);
+            const assigns = parseFloat(document.getElementById('assignments').value);
+            
+            // Approximate linear regression formula (using the dataset generation coefficients)
+            // final_marks = 0.4 * att + 1.2 * hrs + 0.3 * internal + 1.5 * assigns
+            let pred = 0.4 * att + 1.2 * hrs + 0.3 * internal + 1.5 * assigns;
+            pred = Math.max(0, Math.min(100, pred));
+            
+            document.getElementById('score').innerText = pred.toFixed(2);
+            document.getElementById('resultDiv').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
