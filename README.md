@@ -4,11 +4,11 @@ A simple machine-learning project that predicts a student's final academic score
 
 ## Live Demo
 
-**[GitHub Pages Browser Demo](https://DivyanshWatma29.github.io/student-performance-prediction/)** (Note: This is a static frontend-only demonstration of the prediction flow.)
+**[Streamlit Live App](https://share.streamlit.io/)** *(Note: You can deploy this easily for free on Streamlit Community Cloud and place the link here!)*
 
 ## Objective
 
-The objective of this project is to create a simple supervised machine learning model that predicts final student marks based on their academic habits and internal assessments, and to provide this prediction through a simple web interface.
+The objective of this project is to create a simple supervised machine learning model that predicts final student marks based on their academic habits and internal assessments, and to provide this prediction through a simple interactive web app using Streamlit.
 
 ## Features
 
@@ -17,19 +17,18 @@ The objective of this project is to create a simple supervised machine learning 
 - Use study hours
 - Use internal marks
 - Use assignments
-- Simple Flask interface
+- Simple Streamlit Python interface
 
 ## How It Works
 
-Dataset ? preprocessing ? Linear Regression ? prediction ? Flask interface
+Dataset ? preprocessing ? Linear Regression ? prediction ? Streamlit UI
 
 ## Technologies Used
 
 - Python
 - Pandas
 - scikit-learn
-- Flask
-- HTML/CSS
+- Streamlit
 
 ## Dataset
 
@@ -53,13 +52,11 @@ The project uses a **Linear Regression** model because the target variable is co
 
 \\\
 student-performance-prediction/
-+-- app.py                # Flask web application
++-- app.py                # Streamlit web application
 +-- train_model.py        # ML training script
 +-- student_data.csv      # Dataset
++-- model.pkl             # Trained model (generated)
 +-- requirements.txt      # Python dependencies
-+-- templates/
-¦   +-- index.html        # Web interface
-+-- docs/                 # GitHub pages static demo
 \\\
 
 ## Run Locally
@@ -72,11 +69,10 @@ student-performance-prediction/
    \\\ash
    python train_model.py
    \\\
-3. Run the Flask application:
+3. Run the Streamlit application:
    \\\ash
-   python app.py
+   streamlit run app.py
    \\\
-4. Open \http://127.0.0.1:5000\ in your browser.
 
 ## Limitations
 

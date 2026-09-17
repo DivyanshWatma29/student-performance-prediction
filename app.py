@@ -1,50 +1,47 @@
-from flask import Flask, render_template, request
+import streamlit as st
 import pickle
 import numpy as np
+import pandas as pd
 
-app = Flask(__name__)
+st.set_page_config(page_title="Student Performance Prediction", page_icon="??")
+
+st.title("Student Performance Prediction ??")
+st.write("Enter the student's academic details below to predict their final score.")
 
 # Load the trained model
-try:
-    with open('model.pkl', 'rb') as f:
-        model = pickle.load(f)
-except Exception as e:
-    model = None
-    print("Error loading model. Make sure to run train_model.py first.")
+@st.cache_resource
+def load_model():
+    try:
+        with open('model.pkl', 'rb') as f:
+            return pickle.load(f)
+    except FileNotFoundError:
+        return None
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    prediction = None
-    error = None
-    if request.method == 'POST':
-        try:
-            # Read inputs
-            attendance = float(request.form['attendance'])
-            study_hours = float(request.form['study_hours'])
-            internal_marks = float(request.form['internal_marks'])
-            assignments = float(request.form['assignments'])
-            
-            # Simple validation
-            if not (0 <= attendance <= 100):
-                error = "Attendance must be between 0 and 100."
-            elif study_hours < 0:
-                error = "Study hours cannot be negative."
-            elif not (0 <= internal_marks <= 100):
-                error = "Internal marks must be between 0 and 100."
-            elif assignments < 0:
-                error = "Assignments cannot be negative."
-            else:
-                # Predict
-                if model:
-                    features = np.array([[attendance, study_hours, internal_marks, assignments]])
-                    pred = model.predict(features)[0]
-                    prediction = round(min(max(pred, 0), 100), 2)
-                else:
-                    error = "Model is not available."
-        except ValueError:
-            error = "Please enter valid numeric values."
-            
-    return render_template('index.html', prediction=prediction, error=error)
+model = load_model()
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if model is None:
+    st.error("Error: Trained model not found. Please run 'train_model.py' to generate 'model.pkl'.")
+else:
+    # Input forms
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        attendance = st.number_input("Attendance (%)", min_value=0.0, max_value=100.0, value=85.0, step=1.0)
+        study_hours = st.number_input("Study Hours (per week)", min_value=0.0, max_value=168.0, value=3.0, step=0.5)
+        
+    with col2:
+        internal_marks = st.number_input("Internal Marks (out of 100)", min_value=0.0, max_value=100.0, value=70.0, step=1.0)
+        assignments = st.number_input("Assignments Completed", min_value=0, max_value=50, value=8, step=1)
+        
+    if st.button("Predict Score", type="primary"):
+        # Prediction
+        features = np.array([[attendance, study_hours, internal_marks, assignments]])
+        pred = model.predict(features)[0]
+        
+        # Clip score between 0 and 100
+        final_score = min(max(pred, 0), 100)
+        
+        st.success(f"### Predicted Final Marks: **{final_score:.2f}** / 100")
+        
+    st.markdown("---")
+    st.caption("Model used: **Linear Regression**")
