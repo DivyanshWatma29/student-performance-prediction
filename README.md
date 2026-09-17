@@ -45,9 +45,9 @@ The project uses a **Linear Regression** model because the target variable is co
 
 ## Model Evaluation
 
-- R² Score: {R2_PLACEHOLDER}
-- MAE: {MAE_PLACEHOLDER}
-- RMSE: {RMSE_PLACEHOLDER}
+- R² Score: 0.9127
+- MAE: 2.6318
+- RMSE: 3.2038
 
 ## Project Structure
 
