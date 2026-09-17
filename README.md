@@ -4,7 +4,7 @@ A simple machine-learning project that predicts a student's final academic score
 
 ## Live Demo
 
-**[Live Streamlit App (Render)](https://student-performance-prediction.onrender.com)**
+**[Live Streamlit App (Render)](https://student-performance-prediction-0fsy.onrender.com)**
 
 ## Objective
 

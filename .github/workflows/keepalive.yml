@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping App
-        run: curl -sL https://student-performance-prediction.onrender.com > /dev/null || echo "Ping failed"
+        run: curl -sL https://student-performance-prediction-0fsy.onrender.com > /dev/null || echo "Ping failed"
