@@ -1,0 +1,13 @@
+name: Keep-Alive Streamlit
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping App
+        run: curl -sL https://student-performance-prediction.onrender.com > /dev/null || echo "Ping failed"
